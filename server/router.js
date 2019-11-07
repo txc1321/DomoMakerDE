@@ -10,6 +10,7 @@ const router = (app) => {
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.post('/maker', mid.requiresLogin, controllers.Domo.make);
+  app.delete('/deleteDomo', mid.requiresLogin, controllers.Domo.deleteDomo);
 };
 
 module.exports = router;

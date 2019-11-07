@@ -15,6 +15,22 @@ const handleDomo = (e) => {
     return false;
 };
 
+const handleDelete = (name) => {
+    sendAjax('GET', '/getToken', null, (result) => {
+        sendDelete(result.csrfToken);
+    });
+
+    const sendDelete = (token) => {
+        const data = "name=" + name +"&_csrf=" + token;
+
+        sendAjax('DELETE', '/deleteDomo', data, function() {
+            loadDomosFromServer();
+        });
+    };
+
+    return false;
+};
+
 const DomoForm = (props) => {
     return(
         <form id="domoForm"
@@ -46,12 +62,13 @@ const DomoList = function(props) {
     }
 
     const domoNodes = props.domos.map(function(domo){
-        return(
+        return (
             <div key={domo._id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
+                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
                 <h3 className="domoFood"> Favorite Food: {domo.favFood} </h3>
+                <button className="domoButton" onClick={() => handleDelete(domo.name)}>X</button>
             </div>
         );
     });

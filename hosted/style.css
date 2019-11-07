@@ -269,3 +269,22 @@ h3.domoAge {
 .domo:last-child {
     margin-bottom:10px;
 }
+
+.domoButton {
+    float: right;
+    background-color:#55acee;
+    border-radius:4px;
+    border:1px solid #0b0e07;
+    color:#ffffff;
+    font-size:10px;
+    padding:3px 5px;
+    text-shadow:0px 2px 0px #263666;
+}
+
+.domoButton:hover {
+    background-color:#0688fa;
+}
+.domoButton:active {
+    position:relative;
+    top:1px;
+}

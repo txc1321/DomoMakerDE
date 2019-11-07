@@ -17,6 +17,22 @@ var handleDomo = function handleDomo(e) {
     return false;
 };
 
+var handleDelete = function handleDelete(name) {
+    sendAjax('GET', '/getToken', null, function (result) {
+        sendDelete(result.csrfToken);
+    });
+
+    var sendDelete = function sendDelete(token) {
+        var data = "name=" + name + "&_csrf=" + token;
+
+        sendAjax('DELETE', '/deleteDomo', data, function () {
+            loadDomosFromServer();
+        });
+    };
+
+    return false;
+};
+
 var DomoForm = function DomoForm(props) {
     return React.createElement(
         "form",
@@ -88,6 +104,13 @@ var DomoList = function DomoList(props) {
                 " Favorite Food: ",
                 domo.favFood,
                 " "
+            ),
+            React.createElement(
+                "button",
+                { className: "domoButton", onClick: function onClick() {
+                        return handleDelete(domo.name);
+                    } },
+                "X"
             )
         );
     });
@@ -135,7 +158,6 @@ var redirect = function redirect(response) {
 };
 
 var sendAjax = function sendAjax(type, action, data, success) {
-    console.log(data);
     $.ajax({
         cache: false,
         type: type,
