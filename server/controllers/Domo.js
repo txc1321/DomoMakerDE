@@ -58,10 +58,12 @@ const deleteDomo = (request, response) => {
   const req = request;
   const res = response;
 
-  const domoPromise = Domo.DomoModel.deleteOne({name: req.body.name}, function (err) {
+  const domoPromise = Domo.DomoModel.deleteOne({ name: req.body.name }, (err) => {
     if (err) {
       return res.status(400).json({ error: 'An error occurred' });
     }
+
+    return false;
   });
   domoPromise.then(() => res.json({ redirect: '/maker' }));
   domoPromise.catch((err) => {
